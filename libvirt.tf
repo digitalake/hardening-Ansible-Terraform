@@ -4,7 +4,7 @@ resource "libvirt_volume" "jammy-server-img" {
   pool = "libvirt-vms" # List storage pools using virsh pool-list
   #source = "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2"
   #source = "https://cloud-images.ubuntu.com/jammy/20220913/jammy-server-cloudimg-amd64-disk-kvm.img"
-  source = "/home/ivanopulo/Downloads/jammy-server-cloudimg-amd64-disk-kvm.img"
+  source = "/home/ivanopulo/Downloads/jammy-server-cloudimg-amd64.img"
   format = "qcow2"
 }
 
