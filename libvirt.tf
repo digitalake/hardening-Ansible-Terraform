@@ -8,6 +8,18 @@ resource "libvirt_volume" "jammy-server-img" {
   format = "qcow2"
 }
 
+
+data "template_file" "user_data" {
+  template = file("${path.module}/cloud_init.cfg")
+}
+
+resource "libvirt_cloudinit_disk" "commoninit" {
+  name = "commoninit.iso"
+  pool = "default" # List storage pools using virsh pool-list
+  user_data      = data.template_file.user_data.rendered
+}
+
+
 # Define KVM domain to create
 resource "libvirt_domain" "ubuntu-jammy" {
   name   = "ubuntu-jammy"
@@ -22,6 +34,8 @@ resource "libvirt_domain" "ubuntu-jammy" {
   disk {
     volume_id = libvirt_volume.jammy-server-img.id
   }
+
+  cloudinit = libvirt_cloudinit_disk.commoninit.id
 
   console {
     type = "pty"
