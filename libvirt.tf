@@ -3,9 +3,9 @@ resource "libvirt_volume" "jammy-server-img" {
   name = "jammy.img"
   pool = "libvirt-vms" # List storage pools using virsh pool-list
   #source = "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2"
-  source = "https://cloud-images.ubuntu.com/jammy/20220913/jammy-server-cloudimg-amd64-disk-kvm.img"
-  #source = "./CentOS-7-x86_64-GenericCloud.qcow2"
-  #format = "qcow2"
+  #source = "https://cloud-images.ubuntu.com/jammy/20220913/jammy-server-cloudimg-amd64-disk-kvm.img"
+  source = "/home/ivanopulo/Downloads/jammy-server-cloudimg-amd64-disk-kvm.img"
+  format = "qcow2"
 }
 
 # Define KVM domain to create
@@ -16,7 +16,7 @@ resource "libvirt_domain" "ubuntu-jammy" {
 
   network_interface {
     network_name = "default" # List networks with virsh net-list
-    wait_for_lease = true
+#    wait_for_lease = true
   }
 
   disk {
