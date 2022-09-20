@@ -61,6 +61,6 @@ resource "libvirt_domain" "ubuntu-jammy" {
   }
 }
 
-#output "all_ips" {
-#  value = { for vm in keys(var.virtual_machines) : vm => libvirt_domain.ubuntu-jammy[each.key].network_interface.0.addresses }
-#}
+output "ip" {
+  value = libvirt_domain.ubuntu-jammy
+}
