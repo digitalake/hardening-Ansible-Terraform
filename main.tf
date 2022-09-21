@@ -60,7 +60,3 @@ resource "libvirt_domain" "ubuntu-jammy" {
     autoport    = true
   }
 }
-
-output "ip" {
-  value = libvirt_domain.ubuntu-jammy
-}
