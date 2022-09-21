@@ -1,3 +1,6 @@
+###terraform.tfvars###
+
+#Virtual machines setup inputs
 vms = {
   vm1 = {
     memoryMB            = 1024 * 4,

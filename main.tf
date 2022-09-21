@@ -1,4 +1,6 @@
-# Defining VM Volume
+###main.tf###
+
+# Defining VM os-image Volume
 resource "libvirt_volume" "ubuntu-22-04-amd64" {
   for_each = local.virtual_machines
   name     = "os-img-${each.key}"
@@ -8,6 +10,7 @@ resource "libvirt_volume" "ubuntu-22-04-amd64" {
   format = "qcow2"
 }
 
+# Defining VM data disk volume
 resource "libvirt_volume" "disk1" {
   for_each         = local.virtual_machines
   name             = "disk1-${each.key}"
@@ -16,12 +19,13 @@ resource "libvirt_volume" "disk1" {
   size             = 13221225472
 }
 
-
+# Defining cloud init config 
 data "template_file" "user_data" {
   for_each = local.virtual_machines
   template = file("${path.module}/cloud_init.cfg")
 }
 
+# Defining VM cloudinit iso image creation 
 resource "libvirt_cloudinit_disk" "commoninit" {
   for_each  = local.virtual_machines
   name      = "${each.key}-commoninit.iso"
@@ -29,14 +33,14 @@ resource "libvirt_cloudinit_disk" "commoninit" {
   user_data = data.template_file.user_data[each.key].rendered
 }
 
-
-# Define KVM domain to create
+# Define KVM domain creation
 resource "libvirt_domain" "ubuntu-jammy" {
   for_each   = local.virtual_machines
   name       = each.key
   memory     = var.memoryMB
   vcpu       = var.cpu
   qemu_agent = true
+  
   network_interface {
     network_name   = "default" # List networks with virsh net-list
     wait_for_lease = true
