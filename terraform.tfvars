@@ -19,3 +19,6 @@ vms = {
 
   }
 }
+
+# Input for docker installation script
+installer_path = "docker-installer.sh"
