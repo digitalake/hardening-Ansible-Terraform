@@ -31,10 +31,11 @@ resource "libvirt_cloudinit_disk" "commoninit" {
   name      = "${each.key}-commoninit.iso"
   pool      = "default" # List storage pools using virsh pool-list
   user_data = data.template_file.user_data[each.key].rendered
+  # user_data_replace_on_change = true
 }
 
 # Define KVM domain creation
-resource "libvirt_domain" "ubuntu-jammy" {
+resource "libvirt_domain" "vm_name" {
   for_each   = var.vms
   name       = each.key
   memory     = each.value.memoryMB
