@@ -1,0 +1,32 @@
+stages:
+  - terraform
+
+tf-validate:
+  stage: terraform
+  image:
+    name: hashicorp/terraform
+    pull_policy: if-not-present
+  tags:
+    - docker
+  script:
+    - terraform fmt && terraform validate
+
+tf-plan:
+  stage: terraform
+  image:
+    name: hashicorp/terraform
+    pull_policy: if-not-present
+  tags:
+    - docker
+  script:
+    - terraform plan
+
+tf-apply:
+  stage: terraform
+  image:
+    name: hashicorp/terraform
+    pull_policy: if-not-present
+  tags:
+    - docker
+  script:
+    - terraform apply -auto-approve
