@@ -6,6 +6,7 @@ tf-validate:
   image:
     name: hashicorp/terraform
     pull_policy: if-not-present
+    entrypoint: [""]
   tags:
     - docker
   script:
@@ -13,8 +14,10 @@ tf-validate:
 
 tf-plan:
   stage: terraform
+  needs: ["tf-validate"]
   image:
     name: hashicorp/terraform
+    entrypoint: [""]
     pull_policy: if-not-present
   tags:
     - docker
@@ -23,8 +26,10 @@ tf-plan:
 
 tf-apply:
   stage: terraform
+  needs: ["tf-plan"]
   image:
     name: hashicorp/terraform
+    entrypoint: [""]
     pull_policy: if-not-present
   tags:
     - docker
