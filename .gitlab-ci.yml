@@ -1,30 +1,48 @@
-stages:
-  - terraform
-
-tf-validate:
-  stage: terraform
+default:
   image:
     name: hashicorp/terraform
     pull_policy: if-not-present
-    entrypoint: [""]
+    entrypoint:
+      - /usr/bin/env
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   tags:
     - docker
+
   before_script:
     - terraform init
+  cache:
+    key: terraform
+    paths:
+      - .terraform
+
+stages:
+  - validate
+  - plan
+  - apply
+  - destroy
+
+tf-validate:
+  stage: validate
   script:
     - terraform validate
     - terraform fmt -check
 
-tf-build:
-  stage: terraform
+tf-plan:
+  stage: plan
   needs: ["tf-validate"]
-  image:
-    name: hashicorp/terraform
-    entrypoint: [""]
-    pull_policy: if-not-present
+  script:
+    - terraform plan
+
+tf-apply:
+  stage: applly
+  needs: ["tf-plan"]
   tags:
     - docker
-  before_script:
-    - terraform plan
   script:
     - terraform apply -auto-approve
+
+tf-destroy:
+  stage: destroy
+  script:
+    - terraform destroy -auto-approve
+  when: manual
