@@ -9,10 +9,13 @@ tf-validate:
     entrypoint: [""]
   tags:
     - docker
+  before_script:
+    - terraform init
   script:
-    - terraform fmt && terraform validate
+    - terraform validate
+    - terraform fmt -check
 
-tf-plan:
+tf-build:
   stage: terraform
   needs: ["tf-validate"]
   image:
@@ -21,17 +24,7 @@ tf-plan:
     pull_policy: if-not-present
   tags:
     - docker
-  script:
+  before_script:
     - terraform plan
-
-tf-apply:
-  stage: terraform
-  needs: ["tf-plan"]
-  image:
-    name: hashicorp/terraform
-    entrypoint: [""]
-    pull_policy: if-not-present
-  tags:
-    - docker
   script:
     - terraform apply -auto-approve
