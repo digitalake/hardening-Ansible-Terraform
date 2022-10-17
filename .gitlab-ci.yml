@@ -34,7 +34,7 @@ tf-plan:
     - terraform plan
 
 tf-apply:
-  stage: applly
+  stage: apply
   needs: ["tf-plan"]
   tags:
     - docker
