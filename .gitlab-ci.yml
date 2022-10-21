@@ -35,6 +35,7 @@ tf-plan:
     - terraform plan
 
 tf-apply:
+  image: registry.gitlab.com/ivan.yakimenko.win/gitops:terraform-plus-cdrkit
   stage: apply
   needs: ["tf-plan"]
   tags:
