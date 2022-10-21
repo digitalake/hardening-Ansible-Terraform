@@ -35,7 +35,12 @@ tf-plan:
     - terraform plan
 
 tf-apply:
-  image: registry.gitlab.com/ivan.yakimenko.win/gitops:terraform-plus-cdrkit
+  image: 
+    name: registry.gitlab.com/ivan.yakimenko.win/gitops:terraform-plus-cdrkit
+    pull_policy: if-not-present
+    entrypoint:
+      - /usr/bin/env
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/ivanopulo/Downloads/jammy-server-cloudimg-amd64.img"
   stage: apply
   needs: ["tf-plan"]
   tags:
