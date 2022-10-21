@@ -25,6 +25,7 @@ tf-validate:
   stage: validate
   script:
     - terraform validate
+    - terraform fmt
     - terraform fmt -check
 
 tf-plan:

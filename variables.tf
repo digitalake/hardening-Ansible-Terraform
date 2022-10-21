@@ -3,7 +3,7 @@
 # Virtual setup machines variable
 variable "vms" {
   description = "Map of vm names to configuration."
-  type        = map(object({
+  type = map(object({
     memoryMB            = string,
     cpu                 = string,
     libvirt_volume_size = string,
