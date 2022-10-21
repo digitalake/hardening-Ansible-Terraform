@@ -26,5 +26,6 @@ provider "libvirt" {
   ## Configuration options
   uri = "qemu:///system"
   #alias = "server2"
-  #uri   = "qemu+ssh://root@192.168.100.10/system"
+  #uri   = "qemu+ssh://ivanopulo@127.0.0.1/system?keyfile=/home/ivanopulo/.ssh/deploy"
+  #uri   = "qemu+tcp://localhost:16509/system"
 }

@@ -65,3 +65,29 @@ resource "libvirt_domain" "vm_name" {
     autoport    = true
   }
 }
+
+##generate inventory file for Ansible
+#resource "local_file" "hosts_cfg" {
+#  content = templatefile("${path.module}/templates/ansible-hosts.tpl",
+#    {
+#      masters = {
+#    for k, vm_name in libvirt_domain.vm_name : k => vm_name.network_interface.0.addresses.0
+#    if each.node_is_master == true 
+#  }
+#    }
+#  )
+#  filename = "/home/ivanopulo/ansible-test/inventory/hosts.cfg"
+#}
+#
+#
+#resource "local_file" "inventory" {
+#    filename    = "home/ivanopulo/ansible-test/inventory/hosts.cfg"
+#    content     = <<-EOF
+#    [masters]
+#    ${libvirt_domain.vm_name["master"].network_interface.0.addresses.0}
+#    [workers]
+#    ${libvirt_domain.vm_name["worker1"].network_interface.0.addresses.0}
+#    ${libvirt_domain.vm_name["worker2"].network_interface.0.addresses.0}
+#
+#    EOF
+#}
