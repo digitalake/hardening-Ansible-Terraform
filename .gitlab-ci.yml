@@ -4,7 +4,7 @@ default:
     pull_policy: if-not-present
     entrypoint:
       - /usr/bin/env
-      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/ivanopulo/Downloads/jammy-server-cloudimg-amd64.img"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/binter"
   tags:
     - docker
 
@@ -40,9 +40,13 @@ tf-apply:
     pull_policy: if-not-present
     entrypoint:
       - /usr/bin/env
-      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/ivanopulo/Downloads/jammy-server-cloudimg-amd64.img:/home/ivanopulo/Downloads/jammy-server-cloudimg-amd64.img"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:"
   stage: apply
   needs: ["tf-plan"]
+  artifacts:
+    paths:
+      - templates/hosts.cfg
+    expire_in: 1 week
   tags:
     - docker
   script:

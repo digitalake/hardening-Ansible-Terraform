@@ -6,21 +6,16 @@ variable "vms" {
   type = map(object({
     memoryMB            = string,
     cpu                 = string,
-    libvirt_volume_size = string,
-    node_is_master      = bool
+    libvirt_volume_size = string
   }))
 }
 
+variable "ansible_user" {
+  description = "User for generating Ansible-hosts"
+  type        = string
+}
 
-#locals {
-#  masters = toset([for each in var.vms : libvirt_domain.vm_name.network_interface.0.addresses.0 if each.node_is_master == true])
-#  workers = toset([for each in var.vms : each.memoryMB if each.node_is_master == false])
-#}
-#
-#output "result1" {
-#  value = local.masters
-#}
-#
-#output "result2" {
-#  value = local.workers
-#}
+variable "ansible_private_key_file" {
+  description = "Ansible ssh-key for remote connection"
+  type        = string
+}
