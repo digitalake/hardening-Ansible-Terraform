@@ -1,3 +1,10 @@
+stages:
+  - validate
+  - plan
+  - apply
+  - destroy
+  - trigger_job
+
 default:
   image:
     name: hashicorp/terraform
@@ -7,7 +14,6 @@ default:
       - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:"
   tags:
     - docker
-
   before_script:
     - terraform init
   cache:
@@ -15,11 +21,6 @@ default:
     paths:
       - .terraform
 
-stages:
-  - validate
-  - plan
-  - apply
-  - destroy
 
 tf-validate:
   stage: validate
@@ -57,3 +58,12 @@ tf-destroy:
   script:
     - terraform destroy -auto-approve
   when: manual
+
+trigger_job:
+  image: 
+    name: alpine/curl
+    pull_policy: if-not-present
+  stage: trigger_job
+  needs: ["tf-apply"]
+  script:
+    - "-X POST --fail -F token=${ANSIBLE_TRIGGER_TOKEN -F ref=${CI_COMMIT_REF_NAME} https://gitlab.com/api/v4/projects/40280486/trigger/pipeline"
