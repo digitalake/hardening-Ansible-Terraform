@@ -65,5 +65,8 @@ trigger_job:
     pull_policy: if-not-present
   stage: trigger_job
   needs: ["tf-apply"]
+  before_script:
+  - ''
+  cache: []
   script:
     - "-X POST --fail -F token=${ANSIBLE_TRIGGER_TOKEN -F ref=${CI_COMMIT_REF_NAME} https://gitlab.com/api/v4/projects/40280486/trigger/pipeline"
