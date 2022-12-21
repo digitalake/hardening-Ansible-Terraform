@@ -2,21 +2,21 @@
 
 #Virtual machines setup inputs
 vms = {
-  wordpress-lab = {
+  ansible-worker1 = {
     memoryMB            = 1024 * 2,
     cpu                 = 2,
     libvirt_volume_size = 1024 * 1024 * 1024 * 12
-  }#,
-#  worker1 = {
-#    memoryMB            = 1024 * 2,
-#    cpu                 = 2,
-#    libvirt_volume_size = 1024 * 1024 * 1024 * 12
-#  },
-#  worker2 = {
-#    memoryMB            = 1024 * 2,
-#    cpu                 = 2,
-#    libvirt_volume_size = 1024 * 1024 * 1024 * 12
-#  }
+  },
+  ansible-worker2 = {
+    memoryMB            = 1024 * 2,
+    cpu                 = 2,
+    libvirt_volume_size = 1024 * 1024 * 1024 * 12
+  },
+  ansible-worker3 = {
+    memoryMB            = 1024 * 2,
+    cpu                 = 2,
+    libvirt_volume_size = 1024 * 1024 * 1024 * 12
+  }
 }
 
 #Ansible user input

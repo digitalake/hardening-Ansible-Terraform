@@ -5,7 +5,6 @@ resource "libvirt_volume" "ubuntu-22-04-amd64" {
   for_each = var.vms
   name     = "os-img-${each.key}"
   pool     = "libvirt-vms" # List storage pools using virsh pool-list
-  #source = "https://cloud-images.ubuntu.com/jammy/20220913/jammy-server-cloudimg-amd64-disk-kvm.img"
   source = "/home/ivanopulo/Downloads/jammy-server-cloudimg-amd64.img"
   format = "qcow2"
 }
@@ -74,5 +73,5 @@ resource "local_file" "hosts_cfg" {
       vm_name.name => vm_name.network_interface.0.addresses.0
     }) }
   )
-  filename = "${path.module}/templates/hosts.cfg"
+  filename = "${path.module}/ansible/inventory/hosts.ini"
 }

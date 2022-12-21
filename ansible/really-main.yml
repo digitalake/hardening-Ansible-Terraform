@@ -1,0 +1,7 @@
+---
+- name: Global-logic task 
+  hosts: iaac
+  roles:
+    - file-creator
+    - informer
+#  tasks:
