@@ -6,3 +6,4 @@
 cloud_init.cfg
 .gitlab-ci.yml
 *.tfvars
+*.tfstate
