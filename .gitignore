@@ -3,3 +3,6 @@
 .terraform/providers
 *.tfstate.backup
 *.lock.hcl
+cloud_init.cfg
+.gitlab-ci.yml
+*.tfvars

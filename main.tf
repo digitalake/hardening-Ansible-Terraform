@@ -5,8 +5,8 @@ resource "libvirt_volume" "ubuntu-22-04-amd64" {
   for_each = var.vms
   name     = "os-img-${each.key}"
   pool     = "libvirt-vms" # List storage pools using virsh pool-list
-  source = "/home/ivanopulo/Downloads/jammy-server-cloudimg-amd64.img"
-  format = "qcow2"
+  source   = var.vm_img_path
+  format   = "qcow2"
 }
 
 # Defining VM data disk volume

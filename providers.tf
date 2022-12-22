@@ -5,9 +5,9 @@ terraform {
   backend "s3" {
     bucket                      = "tfe"
     key                         = "terraform.tfstate"
-    endpoint                    = "http://172.17.0.2:9000"
-    access_key                  = "5Scp5tcOIaKYuyup"
-    secret_key                  = "fW8XryLfvSPXmatcLUhXlu9c14qfqo7T"
+    endpoint                    = var.s3_minio_endpoint
+    access_key                  = var.access_key
+    secret_key                  = var.secret_key
     region                      = "main"
     skip_credentials_validation = true
     skip_metadata_api_check     = true
@@ -26,6 +26,6 @@ provider "libvirt" {
   ## Configuration options
   uri = "qemu:///system"
   #alias = "server2"
-  #uri   = "qemu+ssh://ivanopulo@127.0.0.1/system?keyfile=/home/ivanopulo/.ssh/deploy"
-  #uri   = "qemu+tcp://localhost:16509/system"
+  #uri   = "qemu+ssh://"
+  #uri   = "qemu+tcp://"
 }

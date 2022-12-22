@@ -7,6 +7,3 @@ output "VM_IPs" {
   }
 }
 
-#output "ip-vm2" {
-#  value = libvirt_domain.ubuntu-jammy["vm2"].network_interface.0.addresses.0
-#}
