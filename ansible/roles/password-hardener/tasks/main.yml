@@ -1,0 +1,20 @@
+---
+# Installing pwquality package for using 
+# in password rules editing
+- name: Install pwquality
+  ansible.builtin.apt:
+    pkg:
+    - libpam-pwquality
+    state: present
+    update_cache: yes
+
+# Pushing local existing config to remote 
+# host to apply new password rules 
+- name: copy config-file to remote host
+  ansible.builtin.copy:
+    src: passwd
+    dest: /etc/pam.d/passwd
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes

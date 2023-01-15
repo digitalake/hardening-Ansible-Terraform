@@ -1,0 +1,7 @@
+---
+- name: create file in etc 
+  hosts: hardening-targets
+  become: true
+  roles:
+    - password-hardener
+#  tasks:

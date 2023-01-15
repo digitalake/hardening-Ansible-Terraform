@@ -5,9 +5,9 @@ terraform {
   backend "s3" {
     bucket                      = "tfe"
     key                         = "terraform.tfstate"
-    endpoint                    = var.s3_minio_endpoint
-    access_key                  = var.access_key
-    secret_key                  = var.secret_key
+    endpoint                    = "http://172.17.0.2:9000"
+    access_key                  = "some-value"
+    secret_key                  = "some-value"
     region                      = "main"
     skip_credentials_validation = true
     skip_metadata_api_check     = true

@@ -1,6 +1,0 @@
-- debug:
-        msg:
-        - "Hostname: {{ ansible_hostname }}"
-        - "Distroname: {{ ansible_distribution }}"
-        - "Distro-version: {{ ansible_distribution_version }}"
-
