@@ -1,6 +1,6 @@
 # Hardening-Ansible-Terraform
 
-Task:
+### Task:
   - Create and run a script (Ansible playbook) to harden users’ passwords by rejecting the ones that contain a username.
     
     Enforce this rule for ‘root’ as well.
@@ -10,6 +10,9 @@ Task:
     Tools: 
       - Ansible
       - PAM module
+      
+### Skcreenshots:
+
 
 
 Code to deploy several vms + Ansible to harden passwords
