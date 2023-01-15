@@ -1,7 +1,7 @@
 # Hardening-Ansible-Terraform
 
 ### Task:
-  - Create and run a script (Ansible playbook) to harden users’ passwords by rejecting the ones that contain a username.
+  - Create and run a script (Ansible playbook) to harden user's passwords by rejecting the ones that contain a username.
     
     Enforce this rule for ‘root’ as well.
   - Write a report and proof of workability (screenshots)
@@ -9,24 +9,14 @@
   
     Tools: 
       - Ansible
-      - PAM module
-      
-### Skcreenshots:
+      - PAM module      
 
-
-
-Code to deploy several vms + Ansible to harden passwords
 
 ### Hi there! ###
 In this repo u can find some Ansible role-structured playbook for password hardening and Terraform code to use locally.
+Some additional rules were added for passwords.
 
-### How it works ? ###
-
-Terraform:
-  - Terraform with _dmacvicar/libvirt_ provider_
-  > Note! u need to have libvirt (Qemu KVM VirtManager)
-  - Ubuntu Iso image downloaded locally
-  - Minio: S3-based storage for terraform backend
+### Workdir structure ###
   
 Terraform is being used to deploy several vms via _for_each_ constructure.
 
@@ -86,29 +76,51 @@ Then cd to ansible dir to work with Ansible with following command:
 cd ansible
 ```
 Execute the playbook (by name):
-  - _primary.yml_
+  - _hardener.yml_
 
 by running following command
 ```
-ansible-playbook -i inventory/hosts.ini <playbook-name>
+ansible-playbook -i inventory/hosts.ini hardener.yml
 ```
 
 >You can skip adding _-u $username_ step if username is defined in role's variable (see .../roles/$role-name/vars/main.yml content)
 
 >Host checking is disabled by role's defaults (see .../roles/$role-name/defaults/main.yml content)
 
+To connect to VMs via ssh:
+```
+ssh -i <path-to-private-key> <remote-user>@<ip-addr>
+```
+
+### Screenshots:
+1. Terraform execution outputs:
+
+![image](https://user-images.githubusercontent.com/109740456/212538621-428ea522-1f95-4091-a3d3-78426619be38.png)
+
+2. Ansible execution outouts:
+
+![image](https://user-images.githubusercontent.com/109740456/212538674-9423372e-6be7-44db-b995-cefa339225f1.png)
+
+3. Making sure the config is deployed:
+
+![image](https://user-images.githubusercontent.com/109740456/212538787-95a3d32b-f464-42ff-9607-9f0c587613a5.png)
+
+4. Attempt to change password for root user:
+
+![image](https://user-images.githubusercontent.com/109740456/212538731-41a021a3-87b1-447f-8eb8-e397c107548f.png)
+
+5. Attempt to change password for regular user:
+
+![image](https://user-images.githubusercontent.com/109740456/212538778-1f1554e7-2c72-4e55-a0db-8f28350ee58b.png)
 
 ### Useful links: ###
 [About Ansible](https://docs.ansible.com/ansible_community.html)
+
+[About pam_pwquality](https://manpages.ubuntu.com/manpages/jammy/man8/pam_pwquality.8.html)
 
 [About Terraform](https://developer.hashicorp.com/terraform/docs)
 
 [Libvirt privider](https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs)
 
 [About Libvirt](https://ubuntu.com/server/docs/virtualization-libvirt)
-
-[About writing cloud_init_config](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
-
-[Images to use for deploys](https://cloud-images.ubuntu.com/)
-
-[About Minio storage](https://min.io/docs/minio/container/index.html) 
+ 
